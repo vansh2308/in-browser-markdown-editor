@@ -12,7 +12,6 @@ export default function App(){
   const sidebarDisplay = useSelector(state => state.sidebarDisplay.value)
   const dispatch = useDispatch()
   let userDocs = useSelector(state => state.userDocs.value)
-  let markdown = useSelector(state => state.markdown.value)
 
   useEffect(() => {
     dispatch(setMarkdown( userDocs.docsList[userDocs.active].content ))

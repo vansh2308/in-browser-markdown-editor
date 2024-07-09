@@ -40,11 +40,15 @@ export const userDocsSlice = createSlice({
         } else {
             state.value.active = 0;
         }
+    },
+    appendDoc: (state, action) => {
+        state.value.docsList.push(action.payload)
+        state.value.active = state.value.docsList.length - 1;
     }
   }
 })
 
-export const { setUserDocs, setActive, setSaved, setContent, deleteDoc } = userDocsSlice.actions
+export const { setUserDocs, setActive, setSaved, setContent, deleteDoc, appendDoc } = userDocsSlice.actions
 export default userDocsSlice.reducer
 
 

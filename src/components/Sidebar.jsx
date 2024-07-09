@@ -7,17 +7,44 @@ import { FaRegSun } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { setSidebarDisplay } from "../features/sidebarDisplaySlice";
 import { toggleTheme } from "../features/themeSlice";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import { FaPlus } from "react-icons/fa";
-import { setActive } from "../features/userDocs";
+import { setActive, appendDoc } from "../features/userDocs";
 import { setMarkdown } from "../features/markdownSlice";
 
 export default function Sidebar() {
     const userDocs = useSelector(state => state.userDocs.value)
     const dispatch = useDispatch()
+    const [adding, setAdding] = useState(false)
+    const [input, setInput] = useState("")
+
+
+    const handleChange = (e) => {
+        e.preventDefault();
+        setInput(e.target.value)
+    }
+    const handleKeydown = (e)=>{
+        if(e.key == "Enter"){
+            const date = new Date();
+            let day = date.getDate();
+            let month = date.getMonth() + 1;
+            let year = date.getFullYear();
+            let newDoc = {
+                createdAt: `${day}/${month}/${year}`,
+                name: `${input}`, 
+                content: ""
+            }
+            dispatch(appendDoc(newDoc))
+            dispatch(setMarkdown(newDoc.content))
+            setAdding(false)
+        }
+    }
+
 
     return (
-        <div className="h-screen absolute left-0 top-0 p-6 bg-sidebar text-white flex flex-col gap-7 w-[19rem] items-start overflow-x-hidden sidebar">
+        <div className="h-screen absolute left-0 top-0 p-6 bg-sidebar text-white flex flex-col gap-7 w-[19rem] items-start overflow-x-hidden sidebar"
+            onClick={() => setAdding(false)}
+        >
             <button className="w-full text-xl"
                 onClick={() => { dispatch(setSidebarDisplay(false)) }}
             >
@@ -25,12 +52,27 @@ export default function Sidebar() {
             </button>
             <img src={logo} alt="logo" />
 
-            <button className="bg-orange hover:bg-orange/80 px-4 py-3 w-full text-sm flex gap-3 font-medium items-center justify-center rounded-md">
+            <button className="bg-orange hover:bg-orange/80 px-4 py-3 w-full text-sm flex gap-3 font-medium items-center justify-center rounded-md" onClick={(e) => { e.stopPropagation(); setAdding(true) }}>
                 <FaPlus className="text-md" />
                 New Document
             </button>
 
             <span className="text-xs tracking-[0.2rem] mt-4 text-greytext">MY DOCUMENTS</span>
+
+
+            {
+                // new document input 
+                adding &&
+                <button className="flex gap-5  items-center" onClick={(e) => e.stopPropagation()}>
+                    <IoDocumentText className="text-2xl" />
+                    <input type="text" className="focus:outline-none bg-dsecondary py-1 px-3 rounded-md"
+                    onChange={(e) => handleChange(e)}
+                    onKeyDown={(e) => handleKeydown(e)}
+                     />
+
+                </button>
+
+            }
 
             <div className="flex flex-col gap-7 max-h-[60%] overflow-auto">
                 {
@@ -48,20 +90,20 @@ export default function Sidebar() {
 }
 
 
-function DocTile({doc, idx}) {
+function DocTile({ doc, idx }) {
     const userDocs = useSelector(state => state.userDocs.value)
     const dispatch = useDispatch()
     return (
         <button className="flex gap-5  items-center"
-        onClick={() => {
-            dispatch(setActive(idx))
-            dispatch(setMarkdown(userDocs.docsList[idx].content))
-        }}
+            onClick={() => {
+                dispatch(setActive(idx))
+                dispatch(setMarkdown(userDocs.docsList[idx].content))
+            }}
         >
             <IoDocumentText className="text-2xl" />
             <div className="flex flex-col text-xs font-extralight justify-start items-start">
                 <span className="text-greytext"> {doc.createdAt} </span>
-                <span className="font-normal text-[0.9rem] mt-1" style={ userDocs.active == idx ? {color: "#e36643"} : {} }> {doc.name} </span>
+                <span className="font-normal text-[0.9rem] mt-1" style={userDocs.active == idx ? { color: "#e36643" } : {}}> {doc.name} </span>
             </div>
 
         </button>
