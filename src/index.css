@@ -113,3 +113,9 @@ textarea{
   transition: background-color 0.2s ease, color 0.2s ease;
   -webkit-transition: background-color 0.2s ease, color 0.2s ease;
 }
+
+.editor{
+  transition: width 0.5s ease;
+  -webkit-transition: width 0.5s ease;
+
+}
