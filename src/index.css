@@ -22,7 +22,7 @@ textarea{
 .markdown-preview > * {
   all: revert;
   width: 100%;
-  font-family: "Roboto Slab", serif;
+  font-family: "Roboto Slab", serif ;
   box-sizing: border-box
 }
 
@@ -34,9 +34,11 @@ textarea{
 
   .markdown-preview > * + * {
     @apply mt-6;
+    font-family: "Roboto Slab", serif ;
   }
 
   .markdown-preview :is(p, li) {
+    font-family: "Roboto Slab", serif ;
     @apply text-sm;
   }
 
@@ -51,20 +53,26 @@ textarea{
   }
 
   .dark .markdown-preview code {
-    @apply text-white;
+    @apply text-dtext;
   }
 
   .markdown-preview blockquote {
-    @apply bg-dprimary;
+    @apply bg-[#cbcbcb];
     @apply p-6;
     @apply border-l-4;
     @apply border-orange;
     @apply rounded-sm;
+    @apply text-ltext
   } 
 
+  .dark .markdown-preview blockquote{
+    @apply text-dtext;
+    @apply bg-sidebar
+  }
+
   .markdown-preview blockquote p {
-    @apply text-neutral-100;
-    @apply font-bold;
+    font-family: "Roboto Slab", serif ;
+    @apply font-semibold;
   }
 
 
@@ -74,12 +82,14 @@ textarea{
   }
 
   .markdown-preview pre {
-    @apply bg-neutral-900;
+    @apply bg-[#cbcbcb];
     @apply p-6;
+    @apply text-ltext;
   }
 
   .dark .markdown-preview pre {
-    @apply bg-neutral-300;
+    @apply bg-sidebar;
+
   }
 }
 
@@ -87,14 +97,19 @@ textarea{
 .markdown-preview blockquote{
   margin: 0;
   border-left: 4px solid #e36643;
+  transition: background-color 0.5s ease, color 0.5s ease;
+  -webkit-transition: background-color 0.5s ease, color 0.5s ease;
 }
 
 .markdown-preview pre{
   border-radius: 4px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  -webkit-transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 
 
-.sidebar{
-  transition: width 0.5s ease;
+*{
+  transition: background-color 0.2s ease, color 0.2s ease;
+  -webkit-transition: background-color 0.2s ease, color 0.2s ease;
 }

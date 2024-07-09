@@ -6,7 +6,6 @@ import rehypeRaw from 'rehype-raw'
 
 
 
-
 export default function Preview() {
     return (
         <div className="w-1/2 h-full flex flex-col gap-2">
@@ -18,7 +17,7 @@ export default function Preview() {
 
             </div>
             <Markdown
-                className="w-[100%] overflow-auto p-6 bg-dsecondary rounded-md flex-grow markdown-preview"
+                className="w-[100%] overflow-auto p-6 bg-lsecondary rounded-md flex-grow markdown-preview dark:bg-dsecondary"
                 // remarkPlugins={[remarkGfm]}
                 rehypePlugins={[rehypeRaw]}
                 children={data[0].content}

@@ -4,8 +4,10 @@ import { IoClose } from "react-icons/io5";
 import { IoDocumentText } from "react-icons/io5";
 import { FaRegMoon } from "react-icons/fa";
 import { FaRegSun } from "react-icons/fa";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setSidebarDisplay } from "../features/sidebarDisplaySlice";
+import { toggleTheme } from "../features/themeSlice";
+import { useRef, useEffect } from "react";
 
 export default function Sidebar() {
     const dispatch = useDispatch()
@@ -51,13 +53,36 @@ function DocTile() {
 
 
 function ThemeBtn() {
+    const dispatch = useDispatch()
+    const theme = useSelector(state => state.theme.value)
+    const toggleBtn = useRef(null)
+
+    useEffect(() => {
+        toggleBtn.current.style.justifyContent = theme === "light" ? "flex-start" : "flex-end";
+        console.log(theme);
+    }, [theme])
+    function handleThemeToggle(e) {
+        if (theme == "light") {
+            document.documentElement.classList.add('dark')
+        } else {
+            document.documentElement.classList.remove('dark')
+        }
+        dispatch(toggleTheme())
+    }
+
+
+
     return (
         <div className="flex gap-3 text-lg items-center absolute bottom-6">
-            <FaRegMoon className="text-md" />
-            <button className="bg-greytext rounded-full w-10 flex items-center p-1 h-5">
+            <FaRegSun />
+            <button
+                className="bg-greytext rounded-full w-10 flex items-center p-1 h-5 justify-end "
+                onClick={(e) => handleThemeToggle(e)}
+                ref={toggleBtn}
+            >
                 <span className="bg-lsecondary aspect-square h-full rounded-full" />
             </button>
-            <FaRegSun />
+            <FaRegMoon className="text-md" />
 
         </div>
     )

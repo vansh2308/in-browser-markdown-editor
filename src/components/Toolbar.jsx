@@ -1,12 +1,14 @@
 import { IoMenu } from "react-icons/io5";
 import { IoDocumentText } from "react-icons/io5";
 import logo from "./../assets/logo.svg"
+import logoDark from "./../assets/logo-dark.svg"
 import { AiFillDelete } from "react-icons/ai";
 import { IoIosSave } from "react-icons/io";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setSidebarDisplay } from "../features/sidebarDisplaySlice";
 
 export default function Toolbar({ }) {
+    const theme = useSelector(state => state.theme.value)
     const dispatch = useDispatch()
     
 
@@ -16,8 +18,8 @@ export default function Toolbar({ }) {
                 <button onClick={() => dispatch(setSidebarDisplay(true))}>
                     <IoMenu />
                 </button>
-                <img src={logo} alt="logo" />
-                <div className="flex gap-3 pl-5 border-l-[1px] border-white items-center">
+                <img src={ theme == "light" ? logoDark : logo } alt="logo"  className="w-32"/>
+                <div className="flex gap-3 pl-5 border-l-[1px] border-dprimary items-center">
                     <IoDocumentText />
                     <div className="flex flex-col text-xs font-light justify-start">
                         <span>Document Name</span>
