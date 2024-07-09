@@ -92,3 +92,9 @@ textarea{
 .markdown-preview pre{
   border-radius: 4px;
 }
+
+
+
+.sidebar{
+  transition: width 0.5s ease;
+}

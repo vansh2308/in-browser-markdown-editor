@@ -19,7 +19,7 @@ export default function Preview() {
             </div>
             <Markdown
                 className="w-[100%] overflow-auto p-6 bg-dsecondary rounded-md flex-grow markdown-preview"
-                remarkPlugins={[remarkGfm]}
+                // remarkPlugins={[remarkGfm]}
                 rehypePlugins={[rehypeRaw]}
                 children={data[0].content}
             />

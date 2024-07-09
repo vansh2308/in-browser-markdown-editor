@@ -3,12 +3,17 @@ import { IoDocumentText } from "react-icons/io5";
 import logo from "./../assets/logo.svg"
 import { AiFillDelete } from "react-icons/ai";
 import { IoIosSave } from "react-icons/io";
+import { useDispatch } from "react-redux";
+import { setSidebarDisplay } from "../features/sidebarDisplaySlice";
 
 export default function Toolbar({ }) {
+    const dispatch = useDispatch()
+    
+
     return (
         <div className="w-full h-fit p-6 flex justify-between">
             <div className="flex gap-9 items-center text-3xl ">
-                <button>
+                <button onClick={() => dispatch(setSidebarDisplay(true))}>
                     <IoMenu />
                 </button>
                 <img src={logo} alt="logo" />
