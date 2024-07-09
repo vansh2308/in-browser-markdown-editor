@@ -6,8 +6,10 @@ import { useSelector } from "react-redux";
 
 
 
+
 export default function App(){
   const sidebarDisplay = useSelector(state => state.sidebarDisplay.value)
+
 
   return(
     <div className="w-screen h-screen max-h-screen text-ltext bg-lprimary flex flex-col dark:text-dtext dark:bg-dprimary">

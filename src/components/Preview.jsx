@@ -12,6 +12,7 @@ import { setFullPreview } from "../features/fullPreviewSlice";
 export default function Preview() {
     const dispatch = useDispatch()
     const fullPreview = useSelector(state => state.fullPreview.value)
+    const markdown = useSelector(state => state.markdown.value)
 
     return (
         <div className="w-1/2 h-full flex flex-col gap-2 flex-grow">
@@ -26,12 +27,12 @@ export default function Preview() {
                     <FaEyeSlash />
                 </button>}
             </div>
-            
+
             <Markdown
                 className="w-[100%] overflow-auto p-6 bg-lsecondary rounded-md flex-grow markdown-preview dark:bg-dsecondary"
                 // remarkPlugins={[remarkGfm]}
                 rehypePlugins={[rehypeRaw]}
-                children={data[0].content}
+                children={markdown}
             />
 
         </div>

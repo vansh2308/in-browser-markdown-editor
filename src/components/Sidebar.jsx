@@ -9,12 +9,15 @@ import { setSidebarDisplay } from "../features/sidebarDisplaySlice";
 import { toggleTheme } from "../features/themeSlice";
 import { useRef, useEffect } from "react";
 import { FaPlus } from "react-icons/fa";
+import { setActive } from "../features/userDocs";
+import { setMarkdown } from "../features/markdownSlice";
 
 export default function Sidebar() {
+    const userDocs = useSelector(state => state.userDocs.value)
     const dispatch = useDispatch()
 
     return (
-        <div className="h-screen absolute left-0 top-0 p-6 bg-sidebar text-white flex flex-col gap-7 min-w-60 items-start max-w-64 overflow-x-hidden sidebar">
+        <div className="h-screen absolute left-0 top-0 p-6 bg-sidebar text-white flex flex-col gap-7 w-[19rem] items-start overflow-x-hidden sidebar">
             <button className="w-full text-xl"
                 onClick={() => { dispatch(setSidebarDisplay(false)) }}
             >
@@ -31,9 +34,9 @@ export default function Sidebar() {
 
             <div className="flex flex-col gap-7 max-h-[60%] overflow-auto">
                 {
-                    [1, 1, 1,].map((item, key) => {
+                    userDocs.docsList.map((doc, key) => {
                         return (
-                            <DocTile key={key} />
+                            <DocTile key={key} doc={doc} idx={key} />
                         )
                     })
                 }
@@ -45,16 +48,23 @@ export default function Sidebar() {
 }
 
 
-function DocTile() {
+function DocTile({doc, idx}) {
+    const userDocs = useSelector(state => state.userDocs.value)
+    const dispatch = useDispatch()
     return (
-        <div className="flex gap-5  items-center">
+        <button className="flex gap-5  items-center"
+        onClick={() => {
+            dispatch(setActive(idx))
+            dispatch(setMarkdown(userDocs.docsList[idx].content))
+        }}
+        >
             <IoDocumentText className="text-2xl" />
-            <div className="flex flex-col text-xs font-extralight justify-start ">
-                <span className="text-greytext">08 July 2024</span>
-                <span className="font-normal text-[0.9rem] mt-1">Untitled Doc </span>
+            <div className="flex flex-col text-xs font-extralight justify-start items-start">
+                <span className="text-greytext"> {doc.createdAt} </span>
+                <span className="font-normal text-[0.9rem] mt-1" style={ userDocs.active == idx ? {color: "#e36643"} : {} }> {doc.name} </span>
             </div>
 
-        </div>
+        </button>
     )
 }
 
