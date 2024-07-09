@@ -6,18 +6,29 @@ import { AiFillDelete } from "react-icons/ai";
 import { IoIosSave } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
 import { setSidebarDisplay } from "../features/sidebarDisplaySlice";
-import { setContent, setSaved } from "../features/userDocs";
+import { deleteDoc, setContent, setSaved } from "../features/userDocs";
+import { setMarkdown } from "../features/markdownSlice";
+import { useEffect } from "react";
 
 export default function Toolbar({ }) {
-    const theme = useSelector(state => state.theme.value)
-    const userDocs = useSelector(state => state.userDocs.value)
-    const markdown = useSelector(state => state.markdown.value)
+    let theme = useSelector(state => state.theme.value)
+    let userDocs = useSelector(state => state.userDocs.value)
+    let markdown = useSelector(state => state.markdown.value)
     const dispatch = useDispatch()
+
 
     const handleSave = (e) => {
         e.preventDefault();
         dispatch(setSaved({type: "saved"}));
-        dispatch(setContent(markdown))
+    }
+
+    const handleDelete = (e) => {
+        e.preventDefault();
+        console.log(userDocs.active)
+        let mkdn = userDocs.docsList.length == 1 ? null : userDocs.active == 0 ? userDocs.docsList[1].content : userDocs.docsList[0].content
+        dispatch(setMarkdown(mkdn))
+        dispatch(deleteDoc());    
+
     }
 
 
@@ -32,7 +43,7 @@ export default function Toolbar({ }) {
                     <IoDocumentText />
                     <div className="flex flex-col text-xs font-light justify-start">
                         <span>Document Name</span>
-                        <span className="font-medium text-sm">{userDocs.docsList[userDocs.active].name}</span>
+                        <span className="font-medium text-sm">{ userDocs.active != null ? userDocs.docsList[userDocs.active].name : ""}</span>
                     </div>
 
                 </div>
@@ -40,7 +51,7 @@ export default function Toolbar({ }) {
 
 
             <div className="flex gap-9 text-2xl items-center">
-                <button>
+                <button onClick={(e) =>  handleDelete(e)} disabled={ userDocs.active == null }>
                     <AiFillDelete />
                 </button>
                 <button

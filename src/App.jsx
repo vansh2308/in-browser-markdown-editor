@@ -1,14 +1,22 @@
+import { useCallback, useEffect, useMemo, useState } from "react";
 import Editor from "./components/Editor";
 import Preview from "./components/Preview";
 import Sidebar from "./components/Sidebar";
 import Toolbar from "./components/Toolbar";
-import { useSelector } from "react-redux";
-
+import { useDispatch, useSelector } from "react-redux";
+import { setMarkdown } from "./features/markdownSlice";
 
 
 
 export default function App(){
   const sidebarDisplay = useSelector(state => state.sidebarDisplay.value)
+  const dispatch = useDispatch()
+  let userDocs = useSelector(state => state.userDocs.value)
+  let markdown = useSelector(state => state.markdown.value)
+
+  useEffect(() => {
+    dispatch(setMarkdown( userDocs.docsList[userDocs.active].content ))
+  }, [])
 
 
   return(

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import data from './../assets/data.json'
 import { useDebugValue, useEffect } from 'react'
 import { setMarkdown } from '../features/markdownSlice'
-import { setContent, setSaved } from '../features/userDocs'
+import userDocs, { setContent, setSaved } from '../features/userDocs'
 
 
 
@@ -19,6 +19,7 @@ export default function Editor() {
         e.preventDefault();
         dispatch(setMarkdown(e.target.value))
         dispatch(setSaved({type: "unsaved"}))
+        dispatch(setContent(markdown))
     }
 
     return (
@@ -26,8 +27,9 @@ export default function Editor() {
             <p className=" tracking-[0.2rem] text-xs"> EDITOR </p>
             <textarea
                 className="w-full overflow-auto p-6 bg-lsecondary rounded-md text-sm flex-grow focus:outline-none dark:bg-dsecondary"
-                value={ markdown }
+                value={ markdown == null ? "" : markdown }
                 onChange={(e) => handleChange(e)}
+                disabled = {markdown == null}
             />
 
         </div>

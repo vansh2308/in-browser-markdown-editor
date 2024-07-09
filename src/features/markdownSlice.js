@@ -6,7 +6,7 @@ import defaultData from "./../assets/data.json"
 export const markdownSlice = createSlice({
   name: "markdown",
   initialState: {
-    value: defaultData[0].content
+    value: null,
   },
   reducers: {
     setMarkdown: (state, action) => {

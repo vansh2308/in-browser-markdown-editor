@@ -31,13 +31,20 @@ export const userDocsSlice = createSlice({
         }
     },
     setContent: (state, action) => {
-        console.log("Setting content...");
         state.value.docsList[state.value.active].content = action.payload
+    },
+    deleteDoc: (state) => {
+        state.value.docsList.splice(state.value.active, 1);
+        if(state.value.docsList.length == 0){
+            state.value.active = null;
+        } else {
+            state.value.active = 0;
+        }
     }
   }
 })
 
-export const { setUserDocs, setActive, setSaved, setContent } = userDocsSlice.actions
+export const { setUserDocs, setActive, setSaved, setContent, deleteDoc } = userDocsSlice.actions
 export default userDocsSlice.reducer
 
 

@@ -76,7 +76,6 @@ function ThemeBtn() {
 
     useEffect(() => {
         toggleBtn.current.style.justifyContent = theme === "light" ? "flex-start" : "flex-end";
-        console.log(theme);
     }, [theme])
     function handleThemeToggle(e) {
         if (theme == "light") {
