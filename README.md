@@ -11,7 +11,6 @@
   - Hover & Focus over interactive components
   - Create, Read, Update, Delete markdown files 
   - Preview the realtime renders 
-  - Customize the pledge amount as per wish 
 
 <img src="./src/assets/ss1.png" width="100%"> <br/>
 <img src="./src/assets/ss2.png" width="100%">
