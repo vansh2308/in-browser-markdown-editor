@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setSidebarDisplay } from "../features/sidebarDisplaySlice";
 import { toggleTheme } from "../features/themeSlice";
 import { useRef, useEffect } from "react";
+import { FaPlus } from "react-icons/fa";
 
 export default function Sidebar() {
     const dispatch = useDispatch()
@@ -20,6 +21,12 @@ export default function Sidebar() {
                 <IoClose className="float-right inline" />
             </button>
             <img src={logo} alt="logo" />
+
+            <button className="bg-orange hover:bg-orange/80 px-4 py-3 w-full text-sm flex gap-3 font-medium items-center justify-center rounded-md">
+                <FaPlus className="text-md" />
+                New Document
+            </button>
+
             <span className="text-xs tracking-[0.2rem] mt-4 text-greytext">MY DOCUMENTS</span>
 
             <div className="flex flex-col gap-7 max-h-[60%] overflow-auto">

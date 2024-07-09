@@ -19,7 +19,7 @@ export default function Toolbar({ }) {
                     <IoMenu />
                 </button>
                 <img src={ theme == "light" ? logoDark : logo } alt="logo"  className="w-32"/>
-                <div className="flex gap-3 pl-5 border-l-[1px] border-dprimary items-center">
+                <div className="flex gap-3 pl-5 border-l-[1px] border-dprimary dark:border-lprimary items-center">
                     <IoDocumentText />
                     <div className="flex flex-col text-xs font-light justify-start">
                         <span>Document Name</span>
@@ -34,7 +34,7 @@ export default function Toolbar({ }) {
                 <button>
                     <AiFillDelete />
                 </button>
-                <button className="bg-orange px-4 py-3 text-sm flex gap-3 font-medium items-center rounded-md">
+                <button className="bg-orange hover:bg-orange/80 px-4 py-3 text-sm flex gap-3 font-medium items-center rounded-md">
                     <IoIosSave className="text-xl" />
                     Save Changes
                 </button>
