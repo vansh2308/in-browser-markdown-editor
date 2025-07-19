@@ -1,4 +1,4 @@
-# In-browser Markdown Editor
+# MarkIt - In-browser Markdown Editor
 
 ## Features
 - Intriguing UI/UX
